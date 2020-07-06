@@ -323,6 +323,11 @@
         dicM=[NSMutableDictionary dictionary];
     }
     
+    if ([[xml dicNodeValueWithKey:@"key" ForDic:tempDic] isEqualToString:@"tableHeaderView"]) {
+        NSString *idStr=[xml dicNodeValueWithKey:@"id" ForDic:tempDic];
+        [dicM setValue:tempDic forKey:idStr];
+    }
+    
     for (NSDictionary *subDic in [xml childDic:tempDic]) {
         if ([xml checkNodeValue:[xml dicNodeValueWithKey:@"customClass" ForDic:subDic]]) {
             NSString *idStr=[xml dicNodeValueWithKey:@"id" ForDic:subDic];
@@ -444,13 +449,20 @@
         dicM=[NSMutableDictionary dictionary];
     }
     
+    if ([[xml dicNodeValueWithKey:@"key" ForDic:tempDic] isEqualToString:@"tableHeaderView"]) {
+        NSString *idStr=[xml dicNodeValueWithKey:@"id" ForDic:tempDic];
+        NSString *custom=[xml dicNodeValueWithKey:@"customClass" ForDic:tempDic];
+        [dicM setValue:custom forKey:idStr];
+    }
+    
     for (NSDictionary *subDic in [xml childDic:tempDic]) {
         if ([xml checkNodeValue:[xml dicNodeValueWithKey:@"customClass" ForDic:subDic]]) {
             NSString *idStr=[xml dicNodeValueWithKey:@"id" ForDic:subDic];
             NSString *custom=[xml dicNodeValueWithKey:@"customClass" ForDic:subDic];
             [dicM setValue:custom forKey:idStr];
         }
-        //对每一个子view进行获取
+        
+        //对每一个子view进行获取 每个子view可能还有subview
         NSMutableArray *allDic=[NSMutableArray array];
         [xml getDicArrFormPathArr:@[@"subviews"] withIndex:0 withDic:subDic addToArrM:allDic];
         for (NSDictionary *subDic in allDic) {
@@ -510,12 +522,19 @@
         dicM=[NSMutableDictionary dictionary];
     }
     
+    if ([[xml dicNodeValueWithKey:@"key" ForDic:tempDic] isEqualToString:@"tableHeaderView"]) {
+        NSString *idStr=[xml dicNodeValueWithKey:@"id" ForDic:tempDic];
+        NSString *custom=[xml dicNodeName:tempDic];
+        [dicM setValue:custom forKey:idStr];
+    }
+    
     for (NSDictionary *subDic in [xml childDic:tempDic]) {
         if ([xml checkNodeValue:[xml dicNodeValueWithKey:@"customClass" ForDic:subDic]]) {
             NSString *idStr=[xml dicNodeValueWithKey:@"id" ForDic:subDic];
             NSString *name=[xml dicNodeName:subDic];
             [dicM setValue:name forKey:idStr];
         }
+        
         //对每一个子view进行获取
         NSMutableArray *allDic=[NSMutableArray array];
         [xml getDicArrFormPathArr:@[@"subviews"] withIndex:0 withDic:subDic addToArrM:allDic];

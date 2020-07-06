@@ -1098,6 +1098,10 @@ void disPlay_TreeNodes(TreeNode *T){//打印里面的兄弟节点
             }
             return [self getDicArrFormPathArr:paths withIndex:index+1 withDic:dic addToArrM:arrM];
         }
+        else if ([[self dicNodeValueWithKey:@"key" ForDic:dic] isEqualToString:@"tableHeaderView"]||[[self dicNodeValueWithKey:@"key" ForDic:dic] isEqualToString:@"tableFooterView"]) {
+            [arrM addObject:dic];
+            return dic;
+        }
     }
     
     NSArray *childArr=[self childDic:dic];

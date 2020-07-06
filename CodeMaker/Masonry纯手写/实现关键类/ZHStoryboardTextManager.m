@@ -117,7 +117,10 @@ static NSMutableDictionary *ZHStoryboardIDDicM;
         viewIdenity=[self isView:rowStr];
         //如果这一行代表的是控件
         if (viewIdenity.length>0) {
-            if ([viewIdenity isEqualToString:@"<view "]&&i>0&&([arr[i-1] rangeOfString:@"key=\""].location!=NSNotFound||[arr[i-1] rangeOfString:@"</layoutGuides>"].location!=NSNotFound)) {
+            if ([viewIdenity isEqualToString:@"<view "]
+                &&i>0
+                &&([rowStr rangeOfString:@"table"].location==NSNotFound)
+                &&([arr[i-1] rangeOfString:@"key=\""].location!=NSNotFound||[arr[i-1] rangeOfString:@"</layoutGuides>"].location!=NSNotFound)) {
                 
                 //为了后面好设置约束,需要将这类view的id值设成特殊可识别的标识符
                 //取出id值
